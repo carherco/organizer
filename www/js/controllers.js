@@ -63,7 +63,22 @@ angular.module('starter.controllers', [])
     
     $scope.count = 6;
     
+    $scope.getTotal = function(){
+        var total = 0;
+        for(count=0;count<$scope.items.length;count++){
+            if($scope.items[count].price!==null) {total += $scope.items[count].price;}
+        }
+        return total;
+    };
+    
     $scope.newitem = {
+        id: null,
+        item: null,
+        user: null,
+        price: null
+    };
+    
+    $scope.edititem = {
         id: null,
         item: null,
         user: null,
@@ -82,13 +97,10 @@ angular.module('starter.controllers', [])
         };
     };
 
-
-    $scope.getTotal = function(){
-        var total = 0;
-        for(count=0;count<$scope.items.length;count++){
-            if($scope.items[count].price!==null) {total += $scope.items[count].price;}
-        }
-        return total;
+    $scope.selectItem = function(item) {
+        var previousitem = $scope.edititem;
+        $scope.edititem = item;
+        console.log($scope.edititem.user);
     };
 
     $scope.removeItem = function(index){

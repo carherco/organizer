@@ -6,16 +6,22 @@
                 <button class="col col-25 button button-positive" ng-show="newitem.item" ng-click="addItem()">Add</button>
             </ion-item>
             <ion-item id="row_{{item.id}}" class="row" ng-repeat="item in items | orderBy:'id':true" ng-click="selectItem(item)">
-                <span class="col col-50 item_name">{{item.item}}</span>
-                <span class="col item_user">{{users[item.user].name}}</span>
-                <span class="col item_price" ng-if="item.price !== null">{{item.price + "€"}}</span>
+                <span class="col col-50 item_name" ng-hide="edititem.id=={{item.id}}" ng-show="edititem.id!={{item.id}}">{{item.item}}</span>
+                <input type="text" class="col col-50 item_name" ng-model="edititem.item"  ng-show="edititem.id=={{item.id}}" ng-hide="edititem.id!={{item.id}}">
+                
+                <span class="col col-25 item_user" ng-hide="edititem.id=={{item.id}}" ng-show="edititem.id!={{item.id}}">{{users[item.user-1].name}}</span>
+                <select class="col col-25 item_user" ng-model="edititem.user" ng-show="edititem.id=={{item.id}}" ng-hide="edititem.id!={{item.id}}" ng-options="user.id as user.name for user in users">
+                    <option value=""></option>
+                </select>
+                
+                <span class="col col-25 item_price" ng-if="item.price !== null" ng-hide="edititem.id=={{item.id}}" ng-show="edititem.id!={{item.id}}">{{item.price + "€"}}</span>
+                <input type="number" class="col col-25 item_price" ng-model="edititem.price" ng-show="edititem.id=={{item.id}}" ng-hide="edititem.id!={{item.id}}">
             </ion-item>
             <ion-item class="row">
                 <span class="col col-50"></span>
                 <span class="col">Total:</span>
                 <span class="col">{{getTotal() + "€"}}</span>
             </ion-item>
-            <select class="col" ng-model="item.user" ng-options="user.name for user in users track by user.id"></select>
         </ion-list>
     </ion-content>
 </ion-view>
