@@ -1,0 +1,21 @@
+<ion-view view-title="Listado">
+    <ion-content>
+        <ion-list>
+            <ion-item class="row">
+                <input type="text" class="col col-75" placeholder="+ New element" ng-model="newitem.item">
+                <button class="col col-25 button button-positive" ng-show="newitem.item" ng-click="addItem()">Add</button>
+            </ion-item>
+            <ion-item id="row_{{item.id}}" class="row" ng-repeat="item in items | orderBy:'id':true" ng-click="selectItem(item)">
+                <span class="col col-50 item_name">{{item.item}}</span>
+                <span class="col item_user">{{users[item.user].name}}</span>
+                <span class="col item_price" ng-if="item.price !== null">{{item.price + "€"}}</span>
+            </ion-item>
+            <ion-item class="row">
+                <span class="col col-50"></span>
+                <span class="col">Total:</span>
+                <span class="col">{{getTotal() + "€"}}</span>
+            </ion-item>
+            <select class="col" ng-model="item.user" ng-options="user.name for user in users track by user.id"></select>
+        </ion-list>
+    </ion-content>
+</ion-view>
